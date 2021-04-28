@@ -4,33 +4,21 @@ const bcrypt = require('bcrypt');
 
 function confirmEmail(req, res){
     if(req.params['token'] === user.tokenEmail){
-        user.tokenEmail = '';
-        signUp.find( { $or: [{ username: user.username },
-            { email: user.email }]}, (err, docs) => {
-                console.log(docs);
-                if(err){
-                    res.send('Ошибка....');
-                }  
-                if(docs.length){
-                    res.send('Пользователь с такими данными существует');
-                } else {
+            user.tokenEmail = '';
                     bcrypt.hash(user.password, 10)
                     .then(hash => {
                         const newUser = new signUp({
-                            name:user.name,
-                            username:user.username,
-                            email:user.email,
+                            name:user.name.trim(),
+                            email:user.email.trim(),
                             password:hash
                         })
-        
+                        //Save DB
                         newUser.save(() => {
-                            res.send('Save user');
+                            res.send({message:"Регистрация успешна"});
                         })
-                    });
-                }
-            });
+                });
     } else {
-        res.send('Ошибка....');
+        res.status(500).send({ message: 'Ошибка....' });
     }
 }
 

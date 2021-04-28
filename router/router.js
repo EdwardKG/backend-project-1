@@ -3,7 +3,7 @@ const app = express();
 const { signUp } = require('../actions/signup/signup');
 const { confirmEmail } = require('../actions/confirm-email/confirm');
 
-app.post('/signup', (req, res) => {
+app.post('/signup',(req, res) => {
     signUp(req, res);
 });
 

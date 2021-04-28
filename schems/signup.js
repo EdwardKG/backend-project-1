@@ -4,9 +4,6 @@ const signUp = new Schema({
     name:{
         type:String
     },
-    username:{
-        type:String
-    },
     email:{
         type:String
     },
