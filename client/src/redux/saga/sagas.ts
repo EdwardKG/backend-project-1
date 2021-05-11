@@ -1,7 +1,7 @@
 import {select,takeLeading} from "redux-saga/effects";
 import {SIGNUP_ACTION} from "../actions/actions";
 
-const url : string = "http://localhost:9000/signup";
+const url : string = "/signup";
 export function* sagaWatcher(){
     yield takeLeading(SIGNUP_ACTION,signUp);
 }
@@ -14,7 +14,10 @@ function* signUp(){
             method : "POST",
             headers :{
                 'Content-Type': 'application/json;charset=utf-8',
+                "Accept": "application/json",
+                'Access-Control-Allow-Origin': '*',
             },
+           mode: 'no-cors',
            body : JSON.stringify(data)
         })
         yield console.log(response);
